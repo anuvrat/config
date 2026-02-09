@@ -3,14 +3,17 @@ set -euo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BACKUP_DIR="$HOME/.dotfiles-backup-$(date +%Y%m%d-%H%M%S)"
-PACKAGES=(zsh p10k tmux git)
+PACKAGES=(zsh p10k tmux git nvim)
 
-# Files that will be managed by stow
+# Files/dirs that will be managed by stow
 MANAGED_FILES=(
   "$HOME/.zshrc"
   "$HOME/.p10k.zsh"
   "$HOME/.tmux.conf"
   "$HOME/.gitconfig"
+)
+MANAGED_DIRS=(
+  "$HOME/.config/nvim"
 )
 
 info()  { printf "\033[0;34m[info]\033[0m  %s\n" "$1"; }
@@ -76,6 +79,14 @@ for f in "${MANAGED_FILES[@]}"; do
   [[ -e "$f" || -L "$f" ]] && rm "$f"
 done
 
+# Remove existing managed dirs that are symlinks (stow will recreate)
+for d in "${MANAGED_DIRS[@]}"; do
+  [[ -L "$d" ]] && rm "$d"
+done
+
+# ── Ensure XDG config dir exists ─────────────────────────────────────────
+mkdir -p "$HOME/.config"
+
 # ── Stow ─────────────────────────────────────────────────────────────────
 info "Linking dotfiles with stow..."
 cd "$DOTFILES_DIR"
@@ -109,4 +120,5 @@ echo "     Preferences > Profiles > Colors > Color Presets > Import..."
 echo "     Select: $DOTFILES_DIR/iterm2/tokyo-night.itermcolors"
 echo "  2. Restart your terminal (or run: exec zsh)"
 echo "  3. First launch will install zinit plugins automatically"
+echo "  4. Open nvim — Lazy.nvim will auto-install plugins on first run"
 echo ""
