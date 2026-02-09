@@ -101,6 +101,19 @@ alias gp="git push"
 alias gl="git pull"
 alias glog="git log --oneline --graph --decorate"
 
+# ── Tmux aliases ─────────────────────────────────────────────────────────
+alias tl="tmux ls"
+alias d="tmux detach-client"
+
+# ts: smart session management
+ts() {
+  if [ -n "$1" ]; then
+    tmux new-session -A -s "$1"  # create or attach to named session
+  else
+    tmux                          # attach to last or create new
+  fi
+}
+
 # ── Utility aliases ──────────────────────────────────────────────────────
 alias reload="source ~/.zshrc"
 alias ..="cd .."
