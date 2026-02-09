@@ -106,6 +106,20 @@ else
   ok "Zinit already installed"
 fi
 
+# ── bat Tokyo Night theme ─────────────────────────────────────────────
+BAT_THEME_DIR="$(bat --config-dir)/themes"
+BAT_THEME_FILE="$BAT_THEME_DIR/tokyonight_night.tmTheme"
+if [[ ! -f "$BAT_THEME_FILE" ]]; then
+  info "Installing Tokyo Night theme for bat/delta..."
+  mkdir -p "$BAT_THEME_DIR"
+  curl -fsSL -o "$BAT_THEME_FILE" \
+    "https://raw.githubusercontent.com/folke/tokyonight.nvim/main/extras/sublime/tokyonight_night.tmTheme"
+  bat cache --build
+  ok "bat theme installed"
+else
+  ok "bat theme already installed"
+fi
+
 # ── Clear stale zsh caches ──────────────────────────────────────────────
 rm -f "$HOME/.zcompdump"*
 info "Cleared zsh completion cache"
