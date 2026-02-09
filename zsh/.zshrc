@@ -94,6 +94,7 @@ fi
 
 # ── zoxide ───────────────────────────────────────────────────────────────
 if command -v zoxide &>/dev/null; then
+  unalias zi 2>/dev/null         # zinit's alias shadows zoxide's zi
   eval "$(zoxide init zsh)"
 fi
 
