@@ -103,14 +103,23 @@ alias glog="git log --oneline --graph --decorate"
 
 # ── Tmux aliases ─────────────────────────────────────────────────────────
 alias tl="tmux ls"
-alias d="tmux detach-client"
 
-# ts: smart session management
+# ta: attach to session (or most recent if no name given)
+ta() {
+  if [ -n "$1" ]; then
+    tmux attach-session -t "$1"
+  else
+    tmux attach-session
+  fi
+}
+
+# ts: create new session (requires name)
 ts() {
   if [ -n "$1" ]; then
-    tmux new-session -A -s "$1"  # create or attach to named session
+    tmux new-session -s "$1"
   else
-    tmux                          # attach to last or create new
+    echo "Usage: ts <session-name>"
+    return 1
   fi
 }
 
