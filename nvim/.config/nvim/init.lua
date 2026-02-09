@@ -23,6 +23,8 @@ opt.signcolumn     = "yes"
 opt.cursorline     = true
 opt.scrolloff      = 8
 opt.updatetime     = 250
+opt.undofile       = true         -- persist undo history across sessions
+opt.inccommand     = "split"      -- live preview for :s substitutions
 
 -- ── Lazy.nvim bootstrap ─────────────────────────────────────────────────
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -160,12 +162,6 @@ require("lazy").setup({
 
 -- ── Keymaps ─────────────────────────────────────────────────────────────
 local map = vim.keymap.set
-
--- Window navigation (also handled by vim-tmux-navigator)
-map("n", "<C-h>", "<C-w>h")
-map("n", "<C-j>", "<C-w>j")
-map("n", "<C-k>", "<C-w>k")
-map("n", "<C-l>", "<C-w>l")
 
 -- Move lines up/down in visual mode
 map("v", "J", ":m '>+1<CR>gv=gv")

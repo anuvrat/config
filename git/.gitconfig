@@ -3,6 +3,9 @@
 	email = singh.anuvrat@gmail.com
 	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDFm1sz34iMJyOq92YAueuuX3KSpqd2dK/3qbJFPkMCT
 
+[init]
+	defaultBranch = main
+
 [pull]
 	rebase = true
 

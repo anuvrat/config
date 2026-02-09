@@ -53,7 +53,6 @@ setopt SHARE_HISTORY          # share across sessions
 setopt HIST_IGNORE_ALL_DUPS   # remove older duplicate
 setopt HIST_REDUCE_BLANKS     # trim whitespace
 setopt HIST_IGNORE_SPACE      # skip commands starting with space
-setopt APPEND_HISTORY         # append, don't overwrite
 
 # ── Completion styling ───────────────────────────────────────────────────
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'  # case-insensitive
@@ -142,7 +141,6 @@ ts() {
 
 # ── Utility aliases ──────────────────────────────────────────────────────
 alias reload="source ~/.zshrc"
-alias ..="cd .."
 alias ...="cd ../.."
 
 # ── Lazy NVM ─────────────────────────────────────────────────────────────
@@ -169,4 +167,6 @@ npm()  { _lazy_nvm && npm "$@"; }
 npx()  { _lazy_nvm && npx "$@"; }
 
 # ── Starship prompt (keep at end) ────────────────────────────────────────
-eval "$(starship init zsh)"
+if command -v starship &>/dev/null; then
+  eval "$(starship init zsh)"
+fi

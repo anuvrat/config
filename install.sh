@@ -85,9 +85,18 @@ for f in "${MANAGED_FILES[@]}"; do
   [[ -e "$f" || -L "$f" ]] && rm "$f"
 done
 
-# Remove existing managed dirs/files that are symlinks (stow will recreate)
+# Remove existing managed dirs/files (stow will recreate)
 for d in "${MANAGED_DIRS[@]}"; do
-  [[ -L "$d" ]] && rm "$d"
+  if [[ -L "$d" ]]; then
+    rm "$d"
+  elif [[ -e "$d" ]]; then
+    if $needs_backup; then
+      mkdir -p "$BACKUP_DIR"
+      cp -r "$d" "$BACKUP_DIR/"
+      info "  Backed up $(basename "$d")"
+    fi
+    rm -rf "$d"
+  fi
 done
 
 # ── Ensure XDG config dir exists ─────────────────────────────────────────
@@ -97,7 +106,7 @@ mkdir -p "$HOME/.config"
 info "Linking dotfiles with stow..."
 cd "$DOTFILES_DIR"
 for pkg in "${PACKAGES[@]}"; do
-  stow -t "$HOME" "$pkg"
+  stow -R -t "$HOME" "$pkg"
   ok "  Stowed $pkg"
 done
 
@@ -120,7 +129,7 @@ if [[ ! -f "$BAT_THEME_FILE" ]]; then
   mkdir -p "$BAT_THEME_DIR"
   curl -fsSL -o "$BAT_THEME_FILE" \
     "https://raw.githubusercontent.com/folke/tokyonight.nvim/main/extras/sublime/tokyonight_night.tmTheme"
-  bat cache --build
+  bat cache --build >/dev/null 2>&1
   ok "bat theme installed"
 else
   ok "bat theme already installed"
