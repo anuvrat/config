@@ -109,6 +109,15 @@ alias ...="cd ../.."
 # ── Lazy NVM ─────────────────────────────────────────────────────────────
 export NVM_DIR="$HOME/.nvm"
 
+# Eagerly add default node to PATH so #!/usr/bin/env node works (e.g., claude)
+if [[ -s "$NVM_DIR/alias/default" ]]; then
+  _nvm_ver=$(< "$NVM_DIR/alias/default")
+  _nvm_ver=${_nvm_ver#v}
+  _nvm_resolved=$(ls -1d "$NVM_DIR/versions/node/v${_nvm_ver}"* 2>/dev/null | sort -rV | head -1)
+  [[ -n "$_nvm_resolved" ]] && path=("$_nvm_resolved/bin" $path)
+  unset _nvm_ver _nvm_resolved
+fi
+
 _lazy_nvm() {
   unfunction nvm node npm npx 2>/dev/null
   [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
