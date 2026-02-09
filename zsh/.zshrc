@@ -48,6 +48,12 @@ zinit wait lucid for \
   blockf atpull"zinit creinstall -q ." \
     zsh-users/zsh-completions
 
+# ── Shell options ────────────────────────────────────────────────────────
+setopt AUTO_CD                # type a dir name to cd into it
+setopt AUTO_PUSHD             # cd pushes onto the dir stack
+setopt PUSHD_IGNORE_DUPS      # no duplicates in dir stack
+setopt PUSHD_SILENT           # don't print dir stack after pushd/popd
+
 # ── History ──────────────────────────────────────────────────────────────
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=50000
@@ -57,6 +63,11 @@ setopt HIST_IGNORE_ALL_DUPS   # remove older duplicate
 setopt HIST_REDUCE_BLANKS     # trim whitespace
 setopt HIST_IGNORE_SPACE      # skip commands starting with space
 setopt APPEND_HISTORY         # append, don't overwrite
+
+# ── Completion styling ───────────────────────────────────────────────────
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'  # case-insensitive
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}       # colorized
+zstyle ':completion:*' menu select                           # arrow-key menu
 
 # ── Key bindings ─────────────────────────────────────────────────────────
 bindkey -e  # emacs mode
@@ -75,11 +86,20 @@ if command -v fzf &>/dev/null; then
     --color=fg:#c0caf5,header:#7aa2f7,info:#e0af68,pointer:#7dcfff
     --color=marker:#9ece6a,fg+:#c0caf5,prompt:#bb9af7,hl+:#7aa2f7
     --height=40% --layout=reverse --border"
+  # Preview windows
+  export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=numbers --line-range=:500 {}'"
+  export FZF_ALT_C_OPTS="--preview 'eza --tree --level=1 --icons --color=always {}'"
 fi
 
 # ── zoxide ───────────────────────────────────────────────────────────────
 if command -v zoxide &>/dev/null; then
   eval "$(zoxide init zsh)"
+fi
+
+# ── bat ──────────────────────────────────────────────────────────────────
+if command -v bat &>/dev/null; then
+  export BAT_THEME="tokyonight_night"
+  alias cat="bat --plain"
 fi
 
 # ── eza aliases ──────────────────────────────────────────────────────────
