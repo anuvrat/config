@@ -3,17 +3,17 @@ set -euo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BACKUP_DIR="$HOME/.dotfiles-backup-$(date +%Y%m%d-%H%M%S)"
-PACKAGES=(zsh p10k tmux git nvim)
+PACKAGES=(zsh starship tmux git nvim)
 
 # Files/dirs that will be managed by stow
 MANAGED_FILES=(
   "$HOME/.zshrc"
-  "$HOME/.p10k.zsh"
   "$HOME/.tmux.conf"
   "$HOME/.gitconfig"
 )
 MANAGED_DIRS=(
   "$HOME/.config/nvim"
+  "$HOME/.config/starship.toml"
 )
 
 info()  { printf "\033[0;34m[info]\033[0m  %s\n" "$1"; }
@@ -58,6 +58,12 @@ if $needs_backup; then
   ok "Backup complete"
 fi
 
+# ── Clean up old p10k config ────────────────────────────────────────────
+if [[ -e "$HOME/.p10k.zsh" || -L "$HOME/.p10k.zsh" ]]; then
+  rm "$HOME/.p10k.zsh"
+  info "Removed old .p10k.zsh"
+fi
+
 # ── Remove old configs ──────────────────────────────────────────────────
 # Oh My Tmux: ~/.tmux.conf is a symlink to .tmux/.tmux.conf
 if [[ -L "$HOME/.tmux.conf" ]]; then
@@ -79,7 +85,7 @@ for f in "${MANAGED_FILES[@]}"; do
   [[ -e "$f" || -L "$f" ]] && rm "$f"
 done
 
-# Remove existing managed dirs that are symlinks (stow will recreate)
+# Remove existing managed dirs/files that are symlinks (stow will recreate)
 for d in "${MANAGED_DIRS[@]}"; do
   [[ -L "$d" ]] && rm "$d"
 done

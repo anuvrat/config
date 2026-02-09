@@ -1,0 +1,45 @@
+# Minimal Pure-style prompt with Tokyo Night colors.
+
+format = """
+$directory\
+$git_branch\
+$git_status\
+$cmd_duration\
+$line_break\
+$python\
+$character"""
+
+add_newline = true
+
+[character]
+success_symbol = "[❯](purple)"
+error_symbol = "[❯](red)"
+vimcmd_symbol = "[❮](purple)"
+
+[directory]
+style = "#7aa2f7"
+truncation_length = 3
+truncate_to_repo = true
+
+[git_branch]
+style = "#565f89"
+format = "[$branch]($style) "
+
+[git_status]
+style = "#565f89"
+format = '([$all_status$ahead_behind]($style) )'
+ahead = "⇡"
+behind = "⇣"
+diverged = "⇡⇣"
+modified = "*"
+untracked = "?"
+staged = "+"
+
+[cmd_duration]
+style = "#e0af68"
+min_time = 5_000
+format = "[$duration]($style) "
+
+[python]
+style = "#565f89"
+format = '[($virtualenv )]($style)'

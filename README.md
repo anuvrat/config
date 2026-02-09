@@ -13,7 +13,7 @@ cd ~/Projects/anuvrat/config
 The install script will:
 - Install Homebrew (if missing) and all dependencies
 - Back up existing dotfiles to `~/.dotfiles-backup-<timestamp>/`
-- Symlink configs via GNU Stow (zsh, p10k, tmux, git, nvim)
+- Symlink configs via GNU Stow (zsh, starship, tmux, git, nvim)
 - Install zinit (zsh plugin manager)
 
 ## Post-install
@@ -27,8 +27,8 @@ The install script will:
 
 | Config | What it does |
 |--------|-------------|
-| `zsh/.zshrc` | Zinit + Powerlevel10k + lazy NVM + fzf/zoxide/eza/bat |
-| `p10k/.p10k.zsh` | Pure-style prompt with Tokyo Night colors |
+| `zsh/.zshrc` | Zinit + starship + lazy NVM + fzf/zoxide/eza/bat |
+| `starship/.config/starship.toml` | Pure-style prompt with Tokyo Night colors |
 | `tmux/.tmux.conf` | Backtick prefix, vim-tmux-navigator, minimal status bar |
 | `git/.gitconfig` | Delta pager (Tokyo Night), rerere, commit signing via 1Password |
 | `nvim/.config/nvim/init.lua` | Lazy.nvim + Tokyo Night + treesitter + telescope + lualine |

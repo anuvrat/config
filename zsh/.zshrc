@@ -1,8 +1,3 @@
-# ── Powerlevel10k instant prompt (must be at top) ────────────────────────
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # ── Environment ──────────────────────────────────────────────────────────
 export EDITOR="nvim"
 export VISUAL="$EDITOR"
@@ -34,10 +29,6 @@ if [[ ! -d "$ZINIT_HOME" ]]; then
   git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 fi
 source "${ZINIT_HOME}/zinit.zsh"
-
-# Powerlevel10k (load immediately, not turbo)
-zinit ice depth=1
-zinit light romkatv/powerlevel10k
 
 # Plugins (turbo mode — load after prompt)
 zinit wait lucid for \
@@ -177,5 +168,5 @@ node() { _lazy_nvm && node "$@"; }
 npm()  { _lazy_nvm && npm "$@"; }
 npx()  { _lazy_nvm && npx "$@"; }
 
-# ── Powerlevel10k config ─────────────────────────────────────────────────
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# ── Starship prompt (keep at end) ────────────────────────────────────────
+eval "$(starship init zsh)"

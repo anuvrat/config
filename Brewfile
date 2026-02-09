@@ -3,6 +3,7 @@ brew "stow"           # Symlink manager for dotfiles
 brew "tmux"           # Terminal multiplexer
 brew "zsh"            # Shell (macOS ships with it, but keep updated)
 brew "neovim"         # Modern vim — our EDITOR
+brew "starship"       # Minimal, fast prompt
 
 # Modern CLI replacements
 brew "eza"            # ls replacement with icons and git awareness
