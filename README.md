@@ -18,10 +18,11 @@ The install script will:
 
 ## Post-install
 
-1. **Import iTerm2 colors**: Preferences > Profiles > Colors > Color Presets > Import > select `iterm2/tokyo-night.itermcolors`
-2. **Restart your terminal** (or `exec zsh`)
-3. First launch installs zinit plugins automatically
-4. **Open `nvim`** — Lazy.nvim will auto-install all plugins on first run
+1. **Edit `~/.config/git/config.local`** — set your name, email, and (optionally) signing key. A template is created by the installer.
+2. **Import iTerm2 colors**: Preferences > Profiles > Colors > Color Presets > Import > select `iterm2/tokyo-night.itermcolors`
+3. **Restart your terminal** (or `exec zsh`)
+4. First launch installs zinit plugins automatically
+5. **Open `nvim`** — Lazy.nvim will auto-install all plugins on first run
 
 ## What's included
 
@@ -30,7 +31,7 @@ The install script will:
 | `zsh/.zshrc` | Zinit + starship + lazy NVM + fzf/zoxide/eza/bat |
 | `starship/.config/starship.toml` | Pure-style prompt with Tokyo Night colors |
 | `tmux/.tmux.conf` | Backtick prefix, vim-tmux-navigator, minimal status bar |
-| `git/.gitconfig` | Delta pager (Tokyo Night), rerere, commit signing via 1Password |
+| `git/.gitconfig` | Delta pager (Tokyo Night), rerere, aliases (identity loaded from local config) |
 | `nvim/.config/nvim/init.lua` | Lazy.nvim + Tokyo Night + treesitter + telescope + lualine |
 | `iterm2/tokyo-night.itermcolors` | iTerm2 color profile |
 

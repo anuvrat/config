@@ -1,0 +1,16 @@
+# ~/.config/git/config.local
+# Machine-specific identity and signing config (not tracked in git)
+# Copy this file to ~/.config/git/config.local and fill in your values.
+
+[user]
+	name = Your Name
+	email = your@email.com
+	# signingkey = ssh-ed25519 AAAA...
+
+# Uncomment below to enable commit signing (e.g., with 1Password SSH agent)
+# [gpg]
+# 	format = ssh
+# [gpg "ssh"]
+# 	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+# [commit]
+# 	gpgsign = true

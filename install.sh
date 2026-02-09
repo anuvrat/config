@@ -111,6 +111,14 @@ for pkg in "${PACKAGES[@]}"; do
   ok "  Stowed $pkg"
 done
 
+# ── Git identity (local, untracked) ────────────────────────────────────
+GIT_LOCAL="$HOME/.config/git/config.local"
+if [[ ! -f "$GIT_LOCAL" ]]; then
+  mkdir -p "$(dirname "$GIT_LOCAL")"
+  cp "$DOTFILES_DIR/git/config.local.example" "$GIT_LOCAL"
+  warn "Created $GIT_LOCAL — edit it with your name, email, and signing key"
+fi
+
 # ── Zinit ────────────────────────────────────────────────────────────────
 ZINIT_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/zinit/zinit.git"
 if [[ ! -d "$ZINIT_HOME" ]]; then

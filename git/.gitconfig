@@ -1,7 +1,5 @@
-[user]
-	name = Anuvrat Singh
-	email = singh.anuvrat@gmail.com
-	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDFm1sz34iMJyOq92YAueuuX3KSpqd2dK/3qbJFPkMCT
+[include]
+	path = ~/.config/git/config.local
 
 [init]
 	defaultBranch = main
@@ -11,15 +9,6 @@
 
 [push]
 	autoSetupRemote = true
-
-[gpg]
-	format = ssh
-
-[gpg "ssh"]
-	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
-
-[commit]
-	gpgsign = true
 
 [core]
 	pager = delta
