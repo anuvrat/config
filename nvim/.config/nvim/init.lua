@@ -52,16 +52,24 @@ require("lazy").setup({
   -- Treesitter — modern syntax highlighting
   {
     "nvim-treesitter/nvim-treesitter",
+    lazy = false,
     build = ":TSUpdate",
     config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = {
-          "lua", "javascript", "typescript", "python", "json", "yaml",
-          "html", "css", "bash", "markdown", "markdown_inline", "vim",
-          "vimdoc", "go", "rust",
-        },
-        highlight = { enable = true },
-        indent = { enable = true },
+      require("nvim-treesitter").setup()
+
+      local langs = {
+        "lua", "javascript", "typescript", "python", "json", "yaml",
+        "html", "css", "bash", "markdown", "markdown_inline", "vim",
+        "vimdoc", "go", "rust",
+      }
+      require("nvim-treesitter").install(langs)
+
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = langs,
+        callback = function()
+          vim.treesitter.start()
+          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end,
       })
     end,
   },
