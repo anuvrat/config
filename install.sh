@@ -10,6 +10,7 @@ MANAGED_FILES=(
   "$HOME/.zshrc"
   "$HOME/.tmux.conf"
   "$HOME/.gitconfig"
+  "$HOME/.config/git/ignore"
 )
 MANAGED_DIRS=(
   "$HOME/.config/nvim"
