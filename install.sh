@@ -31,7 +31,7 @@ ok "Homebrew"
 
 # ── Brew dependencies ───────────────────────────────────────────────────
 info "Installing brew packages..."
-brew bundle --file="$DOTFILES_DIR/Brewfile" --no-lock
+brew bundle --file="$DOTFILES_DIR/Brewfile"
 ok "Brew packages"
 
 # ── Backup existing dotfiles ────────────────────────────────────────────
