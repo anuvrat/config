@@ -68,6 +68,7 @@ setopt APPEND_HISTORY         # append, don't overwrite
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'  # case-insensitive
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}       # colorized
 zstyle ':completion:*' menu select                           # arrow-key menu
+_comp_options+=(globdots)                                      # include dotfiles
 
 # ── Key bindings ─────────────────────────────────────────────────────────
 bindkey -e  # emacs mode
