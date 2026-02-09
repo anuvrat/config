@@ -143,6 +143,49 @@ ts() {
 alias reload="source ~/.zshrc"
 alias ...="cd ../.."
 
+# ── Utility functions ───────────────────────────────────────────────────
+
+# take: mkdir + cd in one step
+take() { mkdir -p "$1" && cd "$1"; }
+
+# gb: fuzzy git branch switcher
+gb() {
+  local branch
+  branch=$(git branch --all --sort=-committerdate \
+    | grep -v HEAD \
+    | fzf --height=40% --reverse \
+    | sed 's/.* //' | sed 's#remotes/origin/##') \
+    && git checkout "$branch"
+}
+
+# fkill: fuzzy process killer
+fkill() {
+  local pid
+  pid=$(ps -ef | fzf --height=40% --reverse --header='Select process to kill' \
+    | awk '{print $2}')
+  [ -n "$pid" ] && kill "${1:-15}" "$pid"
+}
+
+# extract: universal archive extractor
+extract() {
+  if [[ ! -f "$1" ]]; then
+    echo "extract: '$1' is not a file" >&2
+    return 1
+  fi
+  case "$1" in
+    *.tar.bz2) tar xjf "$1"   ;;
+    *.tar.gz)  tar xzf "$1"   ;;
+    *.tar.xz)  tar xJf "$1"   ;;
+    *.tar)     tar xf "$1"    ;;
+    *.bz2)     bunzip2 "$1"   ;;
+    *.gz)      gunzip "$1"    ;;
+    *.zip)     unzip "$1"     ;;
+    *.7z)      7z x "$1"      ;;
+    *.rar)     unrar x "$1"   ;;
+    *) echo "extract: unsupported format '$1'" >&2; return 1 ;;
+  esac
+}
+
 # ── Lazy NVM ─────────────────────────────────────────────────────────────
 export NVM_DIR="$HOME/.nvm"
 

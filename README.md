@@ -155,10 +155,25 @@ Prefix is `` ` `` (backtick). Press `` ` `` twice to type a literal backtick.
 | `` ` h/j/k/l `` | Navigate panes (with prefix) |
 | `Ctrl-h/j/k/l` | Navigate panes (no prefix, works across vim too) |
 | `` ` H/J/K/L `` | Resize panes |
+| `` ` f `` | Fuzzy-pick any window across all sessions (fzf popup) |
+| `` ` Tab `` | Toggle to last window |
+| `` ` BTab `` | Toggle to last session (Shift-Tab) |
+| `` ` g `` | Popup terminal (80% floating pane in current path) |
 | `` ` r `` | Reload tmux config |
 | `` ` [ `` | Enter copy mode (vi keys, `v` to select, `y` to yank) |
 
+The status bar shows a `Z` indicator when a pane is zoomed (`` ` z `` to toggle zoom).
+
 Shell aliases: `tl` (list sessions), `ta [name]` (attach), `ts <name>` (new session).
+
+## CLI functions
+
+| Command | What it does |
+|---------|-------------|
+| `take <dir>` | Create a directory and cd into it in one step. Supports nested paths (`take a/b/c`). |
+| `gb` | Fuzzy-pick a git branch (local or remote) sorted by recent commit, then check it out. |
+| `fkill` | Fuzzy-pick a running process and kill it. Defaults to SIGTERM; pass a signal number for others (`fkill 9`). |
+| `extract <file>` | Extract any archive (tar, gz, bz2, xz, zip, 7z, rar) — no need to remember flags. |
 
 ## Git aliases
 
